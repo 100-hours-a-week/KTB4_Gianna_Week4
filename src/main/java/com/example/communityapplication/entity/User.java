@@ -16,16 +16,12 @@ public class User {
     private String nickname;
     private String profile_picture;
 
-    public User(String email, String password, String nickname, String profile_picture){
-        this.id = 1L;
+    public User(Long id, String email, String password, String nickname, String profile_picture){
+        this.id = id;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.profile_picture = profile_picture == null? "default_picture.jpg" :profile_picture;
-    }
-
-    public void changeEmail(String email) {
-        this.email = email;
     }
 
     public void changePassword(String password) {
