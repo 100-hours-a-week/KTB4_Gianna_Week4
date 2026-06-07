@@ -6,7 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommentRepository {
+    private static Long curId = 1L;
     private static final Map<Long, Comment> commentRepository = new HashMap<>();
+
+    public static Long getCurId(){
+        return curId++;
+    }
     public static void save (Long commentId, Comment comment ){
         commentRepository.put(commentId, comment);
     }

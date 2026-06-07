@@ -6,6 +6,7 @@ import com.example.communityapplication.entity.Comment;
 import com.example.communityapplication.entity.User;
 import com.example.communityapplication.repository.CommentRepository;
 import com.example.communityapplication.repository.UserRepository;
+import com.example.communityapplication.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,45 +17,25 @@ import java.util.List;
 @RequestMapping("/posts/{postId}/comments")
 @RequiredArgsConstructor
 public class CommentController {
-    private Long lastId = 0L;
+    private final CommentService commentService;
 
     @PostMapping("/{userId}")
     public CommentResponseDto createComment(@PathVariable Long postId, @PathVariable Long userId, @RequestBody CommentRequestDto request){
-        User user = UserRepository.getUser(userId);
-        String author = user.getNickname();
-        lastId++;
-        Comment comment = new Comment(
-                lastId,
-                postId,
-                author,
-                request.getContent(),
-                request.getDate()
-        );
-        CommentRepository.save(lastId, comment);
-        return new CommentResponseDto(comment);
+        return commentService.createComment(postId, userId,request);
     }
 
     @GetMapping
     public List<CommentResponseDto> getComment(@PathVariable Long postId){
-        List<CommentResponseDto> commentList = new ArrayList<>();
-        CommentRepository.get().forEach((_, comment) -> {
-            if(comment.isCommentMatchingPost(postId))
-                commentList.add(new CommentResponseDto(comment));
-        });
-
-        return commentList;
+        return commentService.getComment(postId);
     }
 
     @PatchMapping("/{commentId}")
     public List<CommentResponseDto> patchComment(@PathVariable Long postId, @PathVariable Long commentId, @RequestBody CommentRequestDto request){
-        Comment comment = CommentRepository.get(commentId);
-        comment.changeContent(request.getContent());
-
-        return getComment(postId);
+        return commentService.patchComment(postId, commentId, request);
     }
 
     @DeleteMapping("/{commentId}")
     public void deleteComment(@PathVariable Long postId, @PathVariable Long commentId){
-        CommentRepository.delete(commentId);
+        commentService.deleteComment(postId,  commentId);
     }
 }
