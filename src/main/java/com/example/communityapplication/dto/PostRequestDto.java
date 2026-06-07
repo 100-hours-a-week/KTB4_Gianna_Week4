@@ -1,6 +1,7 @@
 package com.example.communityapplication.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +17,7 @@ public class PostRequestDto {
     @NotBlank
     private String content;
 
-    @NotBlank
+    @NotNull
     private Date date;
     private String file;
 }
