@@ -3,6 +3,7 @@ package com.example.communityapplication.controller;
 import com.example.communityapplication.dto.PostRequestDto;
 import com.example.communityapplication.dto.PostResponseDto;
 import com.example.communityapplication.entity.Post;
+import com.example.communityapplication.entity.User;
 import com.example.communityapplication.repository.PostRepository;
 import com.example.communityapplication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,8 @@ public class PostController {
             @PathVariable Long userId,
             @RequestBody PostRequestDto request
     ) {
-        String author = UserRepository.findUserName(userId);
+        User user = UserRepository.getUser(userId);
+        String author = user.getNickname();
         lastId++;
 
         Post post = new Post(

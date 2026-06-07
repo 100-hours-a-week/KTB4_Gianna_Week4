@@ -3,6 +3,7 @@ package com.example.communityapplication.controller;
 import com.example.communityapplication.dto.CommentRequestDto;
 import com.example.communityapplication.dto.CommentResponseDto;
 import com.example.communityapplication.entity.Comment;
+import com.example.communityapplication.entity.User;
 import com.example.communityapplication.repository.CommentRepository;
 import com.example.communityapplication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,8 @@ public class CommentController {
 
     @PostMapping("/{userId}")
     public CommentResponseDto createComment(@PathVariable Long postId, @PathVariable Long userId, @RequestBody CommentRequestDto request){
-        String author = UserRepository.findUserName(userId);
+        User user = UserRepository.getUser(userId);
+        String author = user.getNickname();
         lastId++;
         Comment comment = new Comment(
                 lastId,

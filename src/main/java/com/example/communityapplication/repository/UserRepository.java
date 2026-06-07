@@ -10,16 +10,10 @@ public class UserRepository {
     public static void  save (Long userId, User user){
         userRepository.put(userId,user);
     }
-
     public static User getUser(Long userId){
         return userRepository.get(userId);
     }
-
     public static void delete(Long userId){
         userRepository.remove(userId);
-    }
-
-    public static String findUserName(Long userId){
-        return userRepository.get(userId).getNickname();
     }
 }
