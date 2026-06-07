@@ -6,6 +6,7 @@ import com.example.communityapplication.entity.Post;
 import com.example.communityapplication.entity.User;
 import com.example.communityapplication.repository.PostRepository;
 import com.example.communityapplication.repository.UserRepository;
+import com.example.communityapplication.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,62 +17,33 @@ import java.util.List;
 @RequestMapping("/posts")
 @RequiredArgsConstructor
 public class PostController {
-    private Long lastId = 0L;
+    private final PostService postService;
 
     @PostMapping("/{userId}")
-    public PostResponseDto createPost(
-            @PathVariable Long userId,
-            @RequestBody PostRequestDto request
-    ) {
-        User user = UserRepository.getUser(userId);
-        String author = user.getNickname();
-        lastId++;
-
-        Post post = new Post(
-                lastId,
-                userId,
-                author,
-                request.getDate(),
-                request.getTitle(),
-                request.getContent(),
-                request.getFile()
-        );
-        PostRepository.save(lastId, post);
-        return new PostResponseDto(post);
+    public PostResponseDto createPost(@PathVariable Long userId, @RequestBody PostRequestDto request) {
+        return postService.createPost(userId, request);
     }
 
     //전체 조회
     @GetMapping
     public List<PostResponseDto> getPostList() {
-        List<PostResponseDto> list = new ArrayList<>();
-        PostRepository.get().forEach((_, post ) -> list.add(new PostResponseDto(post)));
-        return list;
+        return postService.getPostList();
     }
 
     //상세 조회
     @GetMapping("/{postId}")
     public PostResponseDto getPost(@PathVariable Long postId) {
-        Post post = PostRepository.get(postId);
-        return new PostResponseDto(post);
+        return postService.getPost(postId);
     }
 
     //게시글 수정
     @PatchMapping("/{postId}")
-    public PostResponseDto updatePost(
-            @PathVariable Long postId,
-            @RequestBody PostRequestDto request
-    ) {
-        Post post = PostRepository.get(postId);
-
-        post.changeTitle(request.getTitle());
-        post.changeContent(request.getContent());
-        post.changeFile(request.getFile());
-
-        return new PostResponseDto(post);
+    public PostResponseDto updatePost(@PathVariable Long postId, @RequestBody PostRequestDto request) {
+        return postService.updatePost(postId, request);
     }
 
     @DeleteMapping("/{postId}")
     public void deletePost(@PathVariable Long postId) {
-        PostRepository.delete(postId);
+        postService.deletePost(postId);
     }
 }

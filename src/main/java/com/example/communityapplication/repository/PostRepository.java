@@ -5,7 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PostRepository {
+    private static Long curId = 0L;
     private static final Map<Long, Post> postRepository = new HashMap<>();
+
+    public static Long getCurId(){
+        return curId++;
+    }
     public static void save (Long postId, Post post){
         postRepository.put(postId, post);
     }
