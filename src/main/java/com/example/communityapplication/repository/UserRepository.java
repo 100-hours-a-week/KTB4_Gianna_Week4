@@ -6,7 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserRepository {
+    private static Long lastId = 0L;
     private static final Map<Long, User> userRepository = new HashMap<>();
+
+    public static Long getCurId(){
+        return lastId++;
+    }
     public static void  save (Long userId, User user){
         userRepository.put(userId,user);
     }

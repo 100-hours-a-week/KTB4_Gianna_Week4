@@ -4,8 +4,7 @@ import com.example.communityapplication.dto.LoginRequestDto;
 import com.example.communityapplication.dto.LoginResponseDto;
 import com.example.communityapplication.dto.UserRequestDto;
 import com.example.communityapplication.dto.UserResponseDto;
-import com.example.communityapplication.entity.User;
-import com.example.communityapplication.repository.UserRepository;
+import com.example.communityapplication.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,68 +12,45 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
-    private Long lastId = 0L;
+    private final UserService userService;
 
     @PostMapping("/signup")
     public UserResponseDto createUser(@RequestBody UserRequestDto request) {
-        lastId++;
-
-        User user = new User(
-                lastId,
-                request.getEmail(),
-                request.getPassword(),
-                request.getNickname(),
-                request.getProfile_picture()
-        );
-        UserRepository.save(user.getId(),user);
-        return new UserResponseDto(user);
+        return userService.createUser(request);
     }
 
     @PostMapping("/login")
     public LoginResponseDto userLogin(@RequestBody LoginRequestDto request){
-        String inputEmail = request.getEmail();
-        String inputPassword = request.getPassword();
-        User user = UserRepository.getUser(inputEmail);
-
-        if(inputEmail.equals(user.getEmail()) && inputPassword.equals(user.getPassword())) return new LoginResponseDto(user);
-        return null;
+        return userService.userLogin(request);
     }
 
     @GetMapping("/{userId}")
     public UserResponseDto getUser(@PathVariable Long userId){
-        User user = UserRepository.getUser(userId);
-        return new UserResponseDto(user);
+        return userService.getUser(userId);
     }
 
     @GetMapping("/{userId}/profilePicture")
-    public String getUserProfilePicture(@PathVariable Long userId){
-        User user = UserRepository.getUser(userId);
-        return user.getProfilePicture();
+    public UserResponseDto getUserProfilePicture(@PathVariable Long userId){
+        return userService.getUserProfilePicture(userId);
     }
 
     @PatchMapping("/{userId}/nickname")
-    public UserResponseDto updateNickname(@PathVariable Long userId, @RequestBody UserRequestDto requestDto){
-        User user = UserRepository.getUser(userId);
-        user.changeNickname(requestDto.getNickname());
-        return new UserResponseDto(user);
+    public UserResponseDto updateNickname(@PathVariable Long userId, @RequestBody UserRequestDto request){
+        return userService.updateNickname(userId, request);
     }
 
     @PatchMapping("/{userId}/password")
-    public UserResponseDto updatePassword(@PathVariable Long userId, @RequestBody UserRequestDto requestDto){
-        User user = UserRepository.getUser(userId);
-        user.changePassword(requestDto.getPassword());
-        return new UserResponseDto(user);
+    public UserResponseDto updatePassword(@PathVariable Long userId, @RequestBody UserRequestDto request){
+       return userService.updatePassword(userId, request);
     }
 
     @PatchMapping("/{userId}/profile_picture")
-    public UserResponseDto updateProfilePicture(@PathVariable Long userId, @RequestBody UserRequestDto requestDto){
-        User user = UserRepository.getUser(userId);
-        user.changeProfilePicture(requestDto.getProfile_picture());
-        return new UserResponseDto(user);
+    public UserResponseDto updateProfilePicture(@PathVariable Long userId, @RequestBody UserRequestDto request){
+      return userService.updateProfilePicture(userId, request);
     }
 
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable Long userId){
-        UserRepository.delete(userId);
+        userService.deleteUser(userId);
     }
 }
