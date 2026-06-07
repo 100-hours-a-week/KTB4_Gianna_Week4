@@ -34,12 +34,6 @@ public class UserController {
         return ApiResponse.of("get_data_success", userResponse);
     }
 
-    @GetMapping("/{userId}/profilePicture")
-    public ApiResponse<UserResponseDto> getUserProfilePicture(@PathVariable Long userId){
-        UserResponseDto userResponse =  userService.getUserProfilePicture(userId);
-        return ApiResponse.of("get_picture_success", userResponse);
-    }
-
     @PatchMapping("/{userId}/nickname")
     public ApiResponse<UserResponseDto> updateNickname(@PathVariable Long userId, @Valid  @RequestBody UserRequestDto request){
         UserResponseDto userResponse = userService.updateNickname(userId, request);
