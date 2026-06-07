@@ -10,7 +10,7 @@ public class UserRepository {
     private static final Map<Long, User> userRepository = new HashMap<>();
 
     public static Long getCurId(){
-        return curId++;
+        return ++curId;
     }
     public static void  save (Long userId, User user){
         userRepository.put(userId,user);

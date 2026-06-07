@@ -10,7 +10,7 @@ public class CommentRepository {
     private static final Map<Long, Comment> commentRepository = new HashMap<>();
 
     public static Long getCurId(){
-        return curId++;
+        return ++curId;
     }
     public static void save (Long commentId, Comment comment ){
         commentRepository.put(commentId, comment);

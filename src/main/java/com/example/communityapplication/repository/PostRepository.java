@@ -9,7 +9,7 @@ public class PostRepository {
     private static final Map<Long, Post> postRepository = new HashMap<>();
 
     public static Long getCurId(){
-        return curId++;
+        return ++curId;
     }
     public static void save (Long postId, Post post){
         postRepository.put(postId, post);
