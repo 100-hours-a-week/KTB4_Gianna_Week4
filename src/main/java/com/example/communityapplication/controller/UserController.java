@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/users/{user_id}")
 @RequiredArgsConstructor
 public class UserController {
     private Long lastId = 0L;
@@ -28,34 +28,40 @@ public class UserController {
         return new UserResponseDto(user);
     }
 
-    @GetMapping("/{user_id}")
+    @GetMapping
     public UserResponseDto getUser(@PathVariable Long user_id){
         User user = UserRepository.getUser(user_id);
         return new UserResponseDto(user);
     }
 
-    @PatchMapping("/{user_id}/nickname")
+    @GetMapping("/profilePicture")
+    public String getUserProfilePicture(@PathVariable Long userId){
+        User user = UserRepository.getUser(userId);
+        return user.getProfilePicture();
+    }
+
+    @PatchMapping("/nickname")
     public UserResponseDto updateNickname(@PathVariable Long user_id, @RequestBody UserRequestDto requestDto){
         User user = UserRepository.getUser(user_id);
         user.changeNickname(requestDto.getNickname());
         return new UserResponseDto(user);
     }
 
-    @PatchMapping("/{user_id}/password")
+    @PatchMapping("/password")
     public UserResponseDto updatePassword(@PathVariable Long user_id, @RequestBody UserRequestDto requestDto){
         User user = UserRepository.getUser(user_id);
         user.changePassword(requestDto.getPassword());
         return new UserResponseDto(user);
     }
 
-    @PatchMapping("/{user_id}/profile_picture")
+    @PatchMapping("/profile_picture")
     public UserResponseDto updateProfilePicture(@PathVariable Long user_id, @RequestBody UserRequestDto requestDto){
         User user = UserRepository.getUser(user_id);
         user.changeProfilePicture(requestDto.getProfile_picture());
         return new UserResponseDto(user);
     }
 
-    @DeleteMapping("/{user_id}")
+    @DeleteMapping
     public void deleteUser(@PathVariable Long user_id){
         UserRepository.delete(user_id);
     }
