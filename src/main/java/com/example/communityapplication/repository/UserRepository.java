@@ -13,6 +13,14 @@ public class UserRepository {
     public static User getUser(Long userId){
         return userRepository.get(userId);
     }
+    public static User getUser(String email){
+        for(Long i =1L; i<= userRepository.size(); i++){
+            if(userRepository.get(i).isSameEmail(email)) {
+                return userRepository.get(i);
+            }
+        }
+        return null;
+    }
     public static void delete(Long userId){
         userRepository.remove(userId);
     }

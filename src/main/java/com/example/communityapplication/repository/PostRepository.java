@@ -1,7 +1,6 @@
 package com.example.communityapplication.repository;
 
 import com.example.communityapplication.entity.Post;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +15,6 @@ public class PostRepository {
     public static Post get(Long postId){
         return postRepository.get(postId);
     }
-
     public static void delete(Long postId){
         postRepository.remove(postId);
     }

@@ -25,14 +25,13 @@ public class User {
         this.profilePicture = profilePicture == null? "default_picture.jpg" : profilePicture;
     }
 
+    public boolean isSameEmail(String email){ return this.email.equals(email); }
     public void changePassword(String password) {
         this.password = password;
     }
-
     public void changeNickname(String nickname) {
         this.nickname = nickname;
     }
-
     public void changeProfilePicture(String profile_picture) {
         this.profilePicture = profile_picture;
     }
