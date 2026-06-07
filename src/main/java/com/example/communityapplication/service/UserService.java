@@ -15,13 +15,12 @@ import org.springframework.validation.annotation.Validated;
 @RequiredArgsConstructor
 public class UserService {
     public UserResponseDto createUser(UserRequestDto request){
-
         User user = new User(
                 UserRepository.getCurId(),
                 request.getEmail(),
                 request.getPassword(),
                 request.getNickname(),
-                request.getProfile_picture()
+                request.getProfilePicture()
         );
         UserRepository.save(user.getId(), user);
         return new UserResponseDto(user);
@@ -60,7 +59,7 @@ public class UserService {
 
     public UserResponseDto updateProfilePicture( Long userId,  UserRequestDto request){
         User user = UserRepository.getUser(userId);
-        user.changeProfilePicture(request.getProfile_picture());
+        user.changeProfilePicture(request.getProfilePicture());
         return new UserResponseDto(user);
     }
 

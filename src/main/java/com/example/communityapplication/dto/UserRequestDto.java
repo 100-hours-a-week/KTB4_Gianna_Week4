@@ -24,5 +24,5 @@ public class UserRequestDto {
     @Size(max = 10)
     private String nickname;
 
-    private String profile_picture;
+    private String profilePicture;
 }

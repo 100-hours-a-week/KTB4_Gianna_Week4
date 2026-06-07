@@ -4,6 +4,7 @@ import com.example.communityapplication.dto.LoginRequestDto;
 import com.example.communityapplication.dto.LoginResponseDto;
 import com.example.communityapplication.dto.UserRequestDto;
 import com.example.communityapplication.dto.UserResponseDto;
+import com.example.communityapplication.response.ApiResponse;
 import com.example.communityapplication.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,38 +17,45 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public UserResponseDto createUser(@Valid @RequestBody UserRequestDto request) {
-        return userService.createUser(request);
+    public ApiResponse<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto request) {
+        UserResponseDto userResponse = userService.createUser(request);
+        return ApiResponse.of("signup_success", userResponse);
     }
 
     @PostMapping("/login")
-    public LoginResponseDto userLogin(@Valid @RequestBody LoginRequestDto request){
-        return userService.userLogin(request);
+    public ApiResponse<LoginResponseDto> userLogin(@Valid @RequestBody LoginRequestDto request){
+        LoginResponseDto userResponse =  userService.userLogin(request);
+        return ApiResponse.of("login_sucess", userResponse);
     }
 
     @GetMapping("/{userId}")
-    public UserResponseDto getUser(@PathVariable Long userId){
-        return userService.getUser(userId);
+    public ApiResponse<UserResponseDto> getUser(@PathVariable Long userId){
+        UserResponseDto userResponse =  userService.getUser(userId);
+        return ApiResponse.of("get_data_success", userResponse);
     }
 
     @GetMapping("/{userId}/profilePicture")
-    public UserResponseDto getUserProfilePicture(@PathVariable Long userId){
-        return userService.getUserProfilePicture(userId);
+    public ApiResponse<UserResponseDto> getUserProfilePicture(@PathVariable Long userId){
+        UserResponseDto userResponse =  userService.getUserProfilePicture(userId);
+        return ApiResponse.of("get_picture_success", userResponse);
     }
 
     @PatchMapping("/{userId}/nickname")
-    public UserResponseDto updateNickname(@PathVariable Long userId, @Valid  @RequestBody UserRequestDto request){
-        return userService.updateNickname(userId, request);
+    public ApiResponse<UserResponseDto> updateNickname(@PathVariable Long userId, @Valid  @RequestBody UserRequestDto request){
+        UserResponseDto userResponse = userService.updateNickname(userId, request);
+        return ApiResponse.of("patch_success", userResponse);
     }
 
     @PatchMapping("/{userId}/password")
-    public UserResponseDto updatePassword(@PathVariable Long userId, @Valid  @RequestBody UserRequestDto request){
-       return userService.updatePassword(userId, request);
+    public ApiResponse<UserResponseDto> updatePassword(@PathVariable Long userId, @Valid  @RequestBody UserRequestDto request){
+        UserResponseDto userResponse =  userService.updatePassword(userId, request);
+        return ApiResponse.of("patch_success", userResponse);
     }
 
-    @PatchMapping("/{userId}/profile_picture")
-    public UserResponseDto updateProfilePicture(@PathVariable Long userId, @Valid  @RequestBody UserRequestDto request){
-      return userService.updateProfilePicture(userId, request);
+    @PatchMapping("/{userId}/profilePicture")
+    public ApiResponse<UserResponseDto> updateProfilePicture(@PathVariable Long userId, @Valid  @RequestBody UserRequestDto request){
+        UserResponseDto userResponse = userService.updateProfilePicture(userId, request);
+        return ApiResponse.of("patch_success", userResponse);
     }
 
     @DeleteMapping("/{userId}")

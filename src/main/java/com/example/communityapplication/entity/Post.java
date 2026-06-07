@@ -22,7 +22,6 @@ public class Post {
 
 //    private Long like = 0L;
 //    private Long view = 0L;
-//    private ArrayList<Comments> comments;
 
     public Post(Long postId, Long userId, String author, Date date, String title, String content, String file) {
         this.postId = postId;
