@@ -2,15 +2,10 @@ package com.example.communityapplication.controller;
 
 import com.example.communityapplication.dto.CommentRequestDto;
 import com.example.communityapplication.dto.CommentResponseDto;
-import com.example.communityapplication.entity.Comment;
-import com.example.communityapplication.entity.User;
-import com.example.communityapplication.repository.CommentRepository;
-import com.example.communityapplication.repository.UserRepository;
 import com.example.communityapplication.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

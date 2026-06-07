@@ -2,15 +2,10 @@ package com.example.communityapplication.controller;
 
 import com.example.communityapplication.dto.PostRequestDto;
 import com.example.communityapplication.dto.PostResponseDto;
-import com.example.communityapplication.entity.Post;
-import com.example.communityapplication.entity.User;
-import com.example.communityapplication.repository.PostRepository;
-import com.example.communityapplication.repository.UserRepository;
 import com.example.communityapplication.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
