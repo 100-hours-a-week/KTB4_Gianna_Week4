@@ -16,6 +16,7 @@ public class User {
     private String nickname;
     private String profile_picture;
 
+
     public User(Long id, String email, String password, String nickname, String profile_picture){
         this.id = id;
         this.email = email;
