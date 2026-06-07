@@ -11,15 +11,12 @@ import lombok.NoArgsConstructor;
 public class UserRequestDto {
 
     @Email
-    @NotBlank
     private String email;
 
-    @NotBlank
     @Size(min = 8)
     @Size(max = 16)
     private String password;
 
-    @NotBlank
     @Size(min = 2)
     @Size(max = 10)
     private String nickname;
