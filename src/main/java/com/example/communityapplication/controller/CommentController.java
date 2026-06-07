@@ -3,6 +3,7 @@ package com.example.communityapplication.controller;
 import com.example.communityapplication.dto.CommentRequestDto;
 import com.example.communityapplication.dto.CommentResponseDto;
 import com.example.communityapplication.service.CommentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/{userId}")
-    public CommentResponseDto createComment(@PathVariable Long postId, @PathVariable Long userId, @RequestBody CommentRequestDto request){
+    public CommentResponseDto createComment(@PathVariable Long postId, @PathVariable Long userId, @Valid @RequestBody CommentRequestDto request){
         return commentService.createComment(postId, userId,request);
     }
 
@@ -25,7 +26,7 @@ public class CommentController {
     }
 
     @PatchMapping("/{commentId}")
-    public List<CommentResponseDto> patchComment(@PathVariable Long postId, @PathVariable Long commentId, @RequestBody CommentRequestDto request){
+    public List<CommentResponseDto> patchComment(@PathVariable Long postId, @PathVariable Long commentId, @Valid @RequestBody CommentRequestDto request){
         return commentService.patchComment(postId, commentId, request);
     }
 

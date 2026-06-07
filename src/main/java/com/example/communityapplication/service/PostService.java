@@ -8,12 +8,14 @@ import com.example.communityapplication.repository.PostRepository;
 import com.example.communityapplication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Validated
 @RequiredArgsConstructor
 public class PostService {
     public PostResponseDto createPost(Long userId, PostRequestDto request) {

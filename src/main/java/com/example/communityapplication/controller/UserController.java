@@ -5,6 +5,7 @@ import com.example.communityapplication.dto.LoginResponseDto;
 import com.example.communityapplication.dto.UserRequestDto;
 import com.example.communityapplication.dto.UserResponseDto;
 import com.example.communityapplication.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +16,12 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public UserResponseDto createUser(@RequestBody UserRequestDto request) {
+    public UserResponseDto createUser(@Valid @RequestBody UserRequestDto request) {
         return userService.createUser(request);
     }
 
     @PostMapping("/login")
-    public LoginResponseDto userLogin(@RequestBody LoginRequestDto request){
+    public LoginResponseDto userLogin(@Valid @RequestBody LoginRequestDto request){
         return userService.userLogin(request);
     }
 
@@ -35,17 +36,17 @@ public class UserController {
     }
 
     @PatchMapping("/{userId}/nickname")
-    public UserResponseDto updateNickname(@PathVariable Long userId, @RequestBody UserRequestDto request){
+    public UserResponseDto updateNickname(@PathVariable Long userId, @Valid  @RequestBody UserRequestDto request){
         return userService.updateNickname(userId, request);
     }
 
     @PatchMapping("/{userId}/password")
-    public UserResponseDto updatePassword(@PathVariable Long userId, @RequestBody UserRequestDto request){
+    public UserResponseDto updatePassword(@PathVariable Long userId, @Valid  @RequestBody UserRequestDto request){
        return userService.updatePassword(userId, request);
     }
 
     @PatchMapping("/{userId}/profile_picture")
-    public UserResponseDto updateProfilePicture(@PathVariable Long userId, @RequestBody UserRequestDto request){
+    public UserResponseDto updateProfilePicture(@PathVariable Long userId, @Valid  @RequestBody UserRequestDto request){
       return userService.updateProfilePicture(userId, request);
     }
 

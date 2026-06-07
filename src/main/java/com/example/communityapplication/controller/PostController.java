@@ -3,6 +3,7 @@ package com.example.communityapplication.controller;
 import com.example.communityapplication.dto.PostRequestDto;
 import com.example.communityapplication.dto.PostResponseDto;
 import com.example.communityapplication.service.PostService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/{userId}")
-    public PostResponseDto createPost(@PathVariable Long userId, @RequestBody PostRequestDto request) {
+    public PostResponseDto createPost(@PathVariable Long userId, @Valid @RequestBody PostRequestDto request) {
         return postService.createPost(userId, request);
     }
 
@@ -33,7 +34,7 @@ public class PostController {
 
     //게시글 수정
     @PatchMapping("/{postId}")
-    public PostResponseDto updatePost(@PathVariable Long postId, @RequestBody PostRequestDto request) {
+    public PostResponseDto updatePost(@PathVariable Long postId, @Valid  @RequestBody PostRequestDto request) {
         return postService.updatePost(postId, request);
     }
 

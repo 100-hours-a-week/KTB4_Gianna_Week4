@@ -8,8 +8,10 @@ import com.example.communityapplication.entity.User;
 import com.example.communityapplication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 @Service
+@Validated
 @RequiredArgsConstructor
 public class UserService {
     public UserResponseDto createUser(UserRequestDto request){

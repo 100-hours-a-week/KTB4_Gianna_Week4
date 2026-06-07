@@ -8,12 +8,14 @@ import com.example.communityapplication.repository.CommentRepository;
 import com.example.communityapplication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Validated
 @RequiredArgsConstructor
 public class CommentService {
     public CommentResponseDto createComment(Long postId,  Long userId, CommentRequestDto request){
