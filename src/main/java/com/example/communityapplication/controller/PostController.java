@@ -2,13 +2,12 @@ package com.example.communityapplication.controller;
 
 import com.example.communityapplication.dto.PostRequestDto;
 import com.example.communityapplication.dto.PostResponseDto;
+import com.example.communityapplication.dto.PostsListResponseDto;
 import com.example.communityapplication.response.ApiResponse;
 import com.example.communityapplication.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-
 
 @RestController
 @RequestMapping("/posts")
@@ -21,21 +20,21 @@ public class PostController {
         PostResponseDto postResponse = postService.createPost(userId, request.getDate(),request.getTitle(),request.getContent(),request.getFile());
         return ApiResponse.of("post_success", postResponse);
     }
-//
-//    //전체 조회
-//    @GetMapping
-//    public ApiResponse<List<PostResponseDto>> getPostList() {
-//        List<PostResponseDto> postResponse = postService.getPostList();
-//        return ApiResponse.of("get_success", postResponse);
-//    }
-//
-//    //상세 조회
-//    @GetMapping("/{postId}")
-//    public ApiResponse<PostResponseDto> getPost(@PathVariable Long postId) {
-//        PostResponseDto postResponse = postService.getPost(postId);
-//        return ApiResponse.of("get_success", postResponse);
-//    }
-//
+
+    //전체 조회
+    @GetMapping
+    public ApiResponse<PostsListResponseDto> getPostList() {
+     PostsListResponseDto postLististResponse = postService.getPostList();
+        return ApiResponse.of("get_success", postLististResponse);
+    }
+
+    //상세 조회
+    @GetMapping("/{postId}")
+    public ApiResponse<PostResponseDto> getPost(@PathVariable Long postId) {
+        PostResponseDto postResponse = postService.getPost(postId);
+        return ApiResponse.of("get_success", postResponse);
+    }
+
 //    //게시글 수정
 //    @PatchMapping("/{postId}")
 //    public ApiResponse<PostResponseDto> updatePost(@PathVariable Long postId, @Valid  @RequestBody PostRequestDto request) {

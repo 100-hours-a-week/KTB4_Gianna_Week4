@@ -17,20 +17,20 @@ public class Posts {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long postId;
+    private Long id;
 
     private Long userId;
     private String author;
-    private Date date;
+    private Date createdAt;
 
     private String title;
     private String content;
     private String file;
 
-    public Posts(Long userId, String author, Date date, String title, String content, String file) {
+    public Posts(Long userId, String author, Date createdAt, String title, String content, String file) {
         this.userId = userId;
         this.author = author;
-        this.date = date;
+        this.createdAt = createdAt;
         this.title = title;
         this.content = content;
         this.file = file;

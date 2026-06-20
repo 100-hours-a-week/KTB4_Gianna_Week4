@@ -1,6 +1,7 @@
 package com.example.communityapplication.service;
 
 import com.example.communityapplication.dto.PostResponseDto;
+import com.example.communityapplication.dto.PostsListResponseDto;
 import com.example.communityapplication.entity.Posts;
 import com.example.communityapplication.entity.Users;
 import com.example.communityapplication.repository.PostsRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Validated
@@ -33,18 +35,18 @@ public class PostService {
         postsRepository.save(post);
         return new PostResponseDto(post);
     }
-//
-//    public List<PostResponseDto> getPostList() {
-//        List<PostResponseDto> list = new ArrayList<>();
-//        PostRepository.get().forEach((_, post ) -> list.add(new PostResponseDto(post)));
-//        return list;
-//    }
-//
-//    public PostResponseDto getPost(Long postId) {
-//        Post post = PostRepository.get(postId);
-//        return new PostResponseDto(post);
-//    }
-//
+
+    public PostsListResponseDto getPostList() {
+        List<Posts> postList = postsRepository.findAll();
+        return new PostsListResponseDto(postList);
+    }
+
+    public PostResponseDto getPost(Long postId) {
+        Posts post = postsRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("user not found"));
+        return new PostResponseDto(post);
+    }
+
 //    public PostResponseDto updatePost( Long postId, PostRequestDto request) {
 //        Post post = PostRepository.get(postId);
 //

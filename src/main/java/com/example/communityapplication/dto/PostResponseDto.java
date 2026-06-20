@@ -19,10 +19,10 @@ public class PostResponseDto {
     private String file;
 
     public PostResponseDto(Posts posts) {
-        this.postId = posts.getPostId();
+        this.postId = posts.getId();
         this.userId= posts.getUserId();
         this.author = posts.getAuthor();
-        this.date = posts.getDate();
+        this.date = posts.getCreatedAt();
         this.title = posts.getTitle();
         this.content = posts.getContent();
         this.file = posts.getFile();
