@@ -1,6 +1,10 @@
 package com.example.communityapplication.entity;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -8,8 +12,11 @@ import java.util.Date;
 
 @Getter
 @RequiredArgsConstructor
-public class Post {
+@Entity
+public class Posts {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
 
     private Long userId;
@@ -20,18 +27,13 @@ public class Post {
     private String content;
     private String file;
 
-//    private Long like = 0L;
-//    private Long view = 0L;
-
-    public Post(Long postId, Long userId, String author, Date date, String title, String content, String file) {
-        this.postId = postId;
+    public Posts(Long userId, String author, Date date, String title, String content, String file) {
         this.userId = userId;
-
         this.author = author;
         this.date = date;
         this.title = title;
         this.content = content;
-        this.file = file == null ? null : file;
+        this.file = file;
     }
 
     public void changeTitle(String title) {
