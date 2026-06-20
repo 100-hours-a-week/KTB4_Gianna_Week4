@@ -40,8 +40,8 @@ public class PostController {
         return ApiResponse.of("patch_success", postResponse);
     }
 
-//    @DeleteMapping("/{postId}")
-//    public void deletePost(@PathVariable Long postId) {
-//        postService.deletePost(postId);
-//    }
+    @DeleteMapping("/{postId}")
+    public void deletePost(@PathVariable Long postId) {
+        postService.deletePost(postId);
+    }
 }
