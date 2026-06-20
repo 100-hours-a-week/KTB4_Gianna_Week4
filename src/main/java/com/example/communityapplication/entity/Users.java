@@ -41,7 +41,8 @@ public class Users {
         this.profilePicture = profile_picture;
     }
     public void delete(){
-        email = "";
-        nickname="";
+        this.email = "";
+        this.nickname="";
+        this.deletedAt = new Date();
     }
 }
