@@ -4,7 +4,9 @@ import com.example.communityapplication.dto.LoginResponseDto;
 
 import com.example.communityapplication.dto.ProfilePictureResponseDto;
 import com.example.communityapplication.dto.UserResponseDto;
+import com.example.communityapplication.entity.DeletedUsers;
 import com.example.communityapplication.entity.Users;
+import com.example.communityapplication.repository.DeletedUsersRepository;
 import com.example.communityapplication.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import org.springframework.validation.annotation.Validated;
 @RequiredArgsConstructor
 public class UsersService {
     private final UsersRepository usersRepository;
+    private final DeletedUsersRepository deletedUsersRepository;
+
     public UserResponseDto create(String email, String password, String nickname, String profilePicture){
         Users user = new Users( email, password,nickname,profilePicture);
         usersRepository.save(user);
@@ -31,6 +35,8 @@ public class UsersService {
     public UserResponseDto getUser(Long userId){
         Users user = usersRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("user not found"));
+        if(user.getEmail().isBlank()) throw new IllegalArgumentException("user not found");
+
         return new UserResponseDto(user);
     }
 
@@ -62,7 +68,12 @@ public class UsersService {
         usersRepository.save(user);
     }
 
-//    public void deleteUser(Long userId){
-//        UserRepository.delete(userId);
-//    }
+    public void deleteUser(Long userId){
+        Users user = usersRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("user not found"));
+        DeletedUsers deletedUsers = new DeletedUsers(user.getId(),user.getEmail(),user.getNickname());
+        user.delete();
+        usersRepository.save(user);
+        deletedUsersRepository.save(deletedUsers);
+    }
 }
