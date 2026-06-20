@@ -1,7 +1,7 @@
 package com.example.communityapplication.service;
 
-
 import com.example.communityapplication.dto.LoginResponseDto;
+
 import com.example.communityapplication.dto.UserResponseDto;
 import com.example.communityapplication.entity.Users;
 import com.example.communityapplication.repository.UsersRepository;
@@ -45,18 +45,20 @@ public class UsersService {
         usersRepository.save(user);
     }
 
-//    public UserResponseDto updatePassword( Long userId,  UserRequestDto request){
-//        User user = UserRepository.getUser(userId);
-//        user.changePassword(request.getPassword());
-//        return new UserResponseDto(user);
-//    }
-//
-//    public UserResponseDto updateProfilePicture( Long userId,  UserRequestDto request){
-//        User user = UserRepository.getUser(userId);
-//        user.changeProfilePicture(request.getProfilePicture());
-//        return new UserResponseDto(user);
-//    }
-//
+    public void updatePassword( Long userId,  String newPassword){
+        Users user = usersRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("user not found"));
+        user.changePassword(newPassword);
+        usersRepository.save(user);
+    }
+
+    public void updateProfilePicture( Long userId,  String newProfilePicture){
+        Users user = usersRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("user not found"));
+        user.changeProfilePicture(newProfilePicture);
+        usersRepository.save(user);
+    }
+
 //    public void deleteUser(Long userId){
 //        UserRepository.delete(userId);
 //    }

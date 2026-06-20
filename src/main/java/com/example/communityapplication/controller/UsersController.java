@@ -42,18 +42,18 @@ public class UsersController {
         return ApiResponse.of("patch_success", null);
     }
 
-//    @PatchMapping("/{userId}/password")
-//    public ApiResponse<UserResponseDto> updatePassword(@PathVariable Long userId, @Valid  @RequestBody UserRequestDto request){
-//        UserResponseDto userResponse =  userService.updatePassword(userId, request);
-//        return ApiResponse.of("patch_success", userResponse);
-//    }
-//
-//    @PatchMapping("/{userId}/profilePicture")
-//    public ApiResponse<UserResponseDto> updateProfilePicture(@PathVariable Long userId, @Valid  @RequestBody UserRequestDto request){
-//        UserResponseDto userResponse = userService.updateProfilePicture(userId, request);
-//        return ApiResponse.of("patch_success", userResponse);
-//    }
-//
+    @PatchMapping("/{userId}/password")
+    public ApiResponse<UserUpdateResponseDto> updatePassword(@PathVariable Long userId, @Valid  @RequestBody UserUpdateRequestDto request){
+        usersService.updatePassword(userId, request.getPassword());
+        return ApiResponse.of("patch_success", null);
+    }
+
+    @PatchMapping("/{userId}/profilePicture")
+    public ApiResponse<UserUpdateResponseDto> updateProfilePicture(@PathVariable Long userId, @Valid  @RequestBody UserUpdateRequestDto request){
+        usersService.updateProfilePicture(userId, request.getProfilePicture());
+        return ApiResponse.of("patch_success", null);
+    }
+
 //    @DeleteMapping("/{userId}")
 //    public void deleteUser(@PathVariable Long userId){
 //        userService.deleteUser(userId);
