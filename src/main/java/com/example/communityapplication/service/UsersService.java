@@ -27,22 +27,24 @@ public class UsersService {
         return new LoginResponseDto(user);
     }
 
-//    public UserResponseDto getUser(Long userId){
-//        User user = UserRepository.getUser(userId);
-//        return new UserResponseDto(user);
-//    }
+    public UserResponseDto getUser(Long userId){
+        Users user = usersRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("user not found"));
+        return new UserResponseDto(user);
+    }
 //
 //    public UserResponseDto getUserProfilePicture(Long userId){
 //        User user = UserRepository.getUser(userId);
 //        return new UserResponseDto(user);
 //    }
 //
-//    public UserResponseDto updateNickname(Long userId, UserRequestDto request){
-//        User user = UserRepository.getUser(userId);
-//        user.changeNickname(request.getNickname());
-//        return new UserResponseDto(user);
-//    }
-//
+    public void updateNickname(Long userId, String newNickname){
+        Users user = usersRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("user not found"));
+        user.changeNickname(newNickname);
+        usersRepository.save(user);
+    }
+
 //    public UserResponseDto updatePassword( Long userId,  UserRequestDto request){
 //        User user = UserRepository.getUser(userId);
 //        user.changePassword(request.getPassword());
