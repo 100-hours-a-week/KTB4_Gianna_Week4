@@ -31,7 +31,6 @@ public class Users {
         this.deletedAt = null;
     }
 
-    public boolean isSameEmail(String email){ return this.email.equals(email); }
     public void changePassword(String password) {
         this.password = password;
     }

@@ -2,6 +2,7 @@ package com.example.communityapplication.service;
 
 import com.example.communityapplication.dto.LoginResponseDto;
 
+import com.example.communityapplication.dto.ProfilePictureResponseDto;
 import com.example.communityapplication.dto.UserResponseDto;
 import com.example.communityapplication.entity.Users;
 import com.example.communityapplication.repository.UsersRepository;
@@ -32,12 +33,14 @@ public class UsersService {
                 .orElseThrow(() -> new IllegalArgumentException("user not found"));
         return new UserResponseDto(user);
     }
-//
-//    public UserResponseDto getUserProfilePicture(Long userId){
-//        User user = UserRepository.getUser(userId);
-//        return new UserResponseDto(user);
-//    }
-//
+
+    public ProfilePictureResponseDto getUserProfilePicture(Long userId){
+        Users user = usersRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("user not found"));
+
+        return new ProfilePictureResponseDto(user.getProfilePicture());
+    }
+
     public void updateNickname(Long userId, String newNickname){
         Users user = usersRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("user not found"));
