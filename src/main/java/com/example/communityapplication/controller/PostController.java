@@ -1,8 +1,6 @@
 package com.example.communityapplication.controller;
 
-import com.example.communityapplication.dto.PostRequestDto;
-import com.example.communityapplication.dto.PostResponseDto;
-import com.example.communityapplication.dto.PostsListResponseDto;
+import com.example.communityapplication.dto.*;
 import com.example.communityapplication.response.ApiResponse;
 import com.example.communityapplication.service.PostService;
 import jakarta.validation.Valid;
@@ -35,13 +33,13 @@ public class PostController {
         return ApiResponse.of("get_success", postResponse);
     }
 
-//    //게시글 수정
-//    @PatchMapping("/{postId}")
-//    public ApiResponse<PostResponseDto> updatePost(@PathVariable Long postId, @Valid  @RequestBody PostRequestDto request) {
-//        PostResponseDto postResponse = postService.updatePost(postId, request);
-//        return ApiResponse.of("patch_success", postResponse);
-//    }
-//
+    //게시글 수정
+    @PatchMapping("/{postId}")
+    public ApiResponse<PostUpdateResponseDto> updatePost(@PathVariable Long postId, @Valid  @RequestBody PostUpdateRequestDto request) {
+        PostUpdateResponseDto postResponse = postService.updatePost(postId, request.getTitle(),request.getContent(),request.getFile());
+        return ApiResponse.of("patch_success", postResponse);
+    }
+
 //    @DeleteMapping("/{postId}")
 //    public void deletePost(@PathVariable Long postId) {
 //        postService.deletePost(postId);

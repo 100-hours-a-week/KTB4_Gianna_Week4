@@ -26,6 +26,8 @@ public class Posts {
     private String title;
     private String content;
     private String file;
+    private Date updatedAt;
+    private Date deletedAt;
 
     public Posts(Long userId, String author, Date createdAt, String title, String content, String file) {
         this.userId = userId;
@@ -34,15 +36,21 @@ public class Posts {
         this.title = title;
         this.content = content;
         this.file = file;
+        this.updatedAt = null;
+        this.deletedAt = null;
     }
 
-    public void changeTitle(String title) {
+    public void updatePost(String newTitle, String newContent, String newFile){
+        if(newTitle != null && !this.title.equals(newTitle)) this.changeTitle(newTitle);
+        if(newContent != null && !this.content.equals(newContent)) this.changeContent(newContent);
+        if(newFile != null && !this.file.equals(newFile)) this.changeFile(newFile);
+        this.updatedAt = new Date();
+    }
+    private void changeTitle(String title) {
         this.title = title;
     }
-
-    public void changeContent(String content) {
+    private void changeContent(String content) {
         this.content = content;
     }
-
-    public void changeFile(String file){ this.file = file;}
+    private void changeFile(String file){ this.file = file;}
 }

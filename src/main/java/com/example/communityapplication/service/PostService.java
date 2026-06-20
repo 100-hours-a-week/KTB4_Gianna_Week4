@@ -1,6 +1,7 @@
 package com.example.communityapplication.service;
 
 import com.example.communityapplication.dto.PostResponseDto;
+import com.example.communityapplication.dto.PostUpdateResponseDto;
 import com.example.communityapplication.dto.PostsListResponseDto;
 import com.example.communityapplication.entity.Posts;
 import com.example.communityapplication.entity.Users;
@@ -47,17 +48,15 @@ public class PostService {
         return new PostResponseDto(post);
     }
 
-//    public PostResponseDto updatePost( Long postId, PostRequestDto request) {
-//        Post post = PostRepository.get(postId);
-//
-//        post.changeTitle(request.getTitle());
-//        post.changeContent(request.getContent());
-//        post.changeFile(request.getFile());
-//
-//        return new PostResponseDto(post);
-//    }
-//
-//
+    public PostUpdateResponseDto updatePost(Long postId, String newTitle, String newContent, String newFile) {
+        Posts post = postsRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("user not found"));
+        post.updatePost(newTitle, newContent,  newFile);
+        postsRepository.save(post);
+        return new PostUpdateResponseDto(post);
+    }
+
+
 //    public void deletePost(Long postId) {
 //        PostRepository.delete(postId);
 //    }
