@@ -1,7 +1,9 @@
 package com.example.communityapplication.controller;
 
+import com.example.communityapplication.dto.LoginRequestDto;
+import com.example.communityapplication.dto.LoginResponseDto;
 import com.example.communityapplication.dto.UserRequestDto;
-import com.example.communityapplication.entity.Users;
+import com.example.communityapplication.dto.UserResponseDto;
 import com.example.communityapplication.response.ApiResponse;
 import com.example.communityapplication.service.UsersService;
 import jakarta.validation.Valid;
@@ -15,17 +17,22 @@ public class UsersController {
     private final UsersService usersService;
 
     @PostMapping("/signup")
-    public ApiResponse<Users> createUser(@Valid @RequestBody UserRequestDto request) {
-        Users user = usersService.create(request.getEmail(), request.getPassword(),request.getNickname(),request.getProfilePicture());
-        return ApiResponse.of("signup_success", user);
+    public ApiResponse<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto request) {
+        UserResponseDto userResponseDto = usersService.create(request.getEmail(), request.getPassword(),request.getNickname(),request.getProfilePicture());
+        return ApiResponse.of("signup_success", userResponseDto);
     }
-//
-//    @PostMapping("/login")
-//    public ApiResponse<LoginResponseDto> userLogin(@Valid @RequestBody LoginRequestDto request){
-//        LoginResponseDto userResponse =  userService.userLogin(request);
-//        return ApiResponse.of("login_sucess", userResponse);
-//    }
-//
+
+    @PostMapping("/login")
+    public ApiResponse<LoginResponseDto> userLogin(@Valid @RequestBody LoginRequestDto request) throws IllegalAccessException {
+        LoginResponseDto userResponse;
+        try {
+            userResponse = usersService.userLogin(request.getEmail(), request.getPassword());
+        } catch (IllegalAccessException e) {
+            throw new IllegalAccessException();
+        }
+        return ApiResponse.of("login_sucess", userResponse);
+    }
+
 //    @GetMapping("/{userId}")
 //    public ApiResponse<UserResponseDto> getUser(@PathVariable Long userId){
 //        UserResponseDto userResponse =  userService.getUser(userId);

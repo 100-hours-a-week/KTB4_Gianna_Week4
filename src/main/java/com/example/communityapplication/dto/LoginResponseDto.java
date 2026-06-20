@@ -1,15 +1,15 @@
 package com.example.communityapplication.dto;
 
-import com.example.communityapplication.entity.User;
+import com.example.communityapplication.entity.Users;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
 public class LoginResponseDto {
-    private String email;
+    private Long id;
 
-    public LoginResponseDto(User user){
-        this.email = user.getEmail();
+    public LoginResponseDto(Users user){
+        this.id = user.getId();
     }
 }

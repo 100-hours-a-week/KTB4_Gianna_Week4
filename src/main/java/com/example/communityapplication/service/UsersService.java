@@ -1,5 +1,8 @@
 package com.example.communityapplication.service;
 
+
+import com.example.communityapplication.dto.LoginResponseDto;
+import com.example.communityapplication.dto.UserResponseDto;
 import com.example.communityapplication.entity.Users;
 import com.example.communityapplication.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,21 +14,19 @@ import org.springframework.validation.annotation.Validated;
 @RequiredArgsConstructor
 public class UsersService {
     private final UsersRepository usersRepository;
-    public Users create(String email, String password, String nickname, String profilePicture){
+    public UserResponseDto create(String email, String password, String nickname, String profilePicture){
         Users user = new Users( email, password,nickname,profilePicture);
         usersRepository.save(user);
-        return  user;
+        return new UserResponseDto(user);
     }
-//
-//    public LoginResponseDto userLogin(LoginRequestDto request){
-//        String inputEmail = request.getEmail();
-//        String inputPassword = request.getPassword();
-//        User user = UserRepository.getUser(inputEmail);
-//
-//        if(inputEmail.equals(user.getEmail()) && inputPassword.equals(user.getPassword())) return new LoginResponseDto(user);
-//        return null;
-//    }
-//
+
+    public LoginResponseDto userLogin(String email, String password) throws IllegalAccessException {
+        Users user = usersRepository.findByEmail(email);
+
+        if(!password.equals(user.getPassword())) throw new IllegalAccessException();
+        return new LoginResponseDto(user);
+    }
+
 //    public UserResponseDto getUser(Long userId){
 //        User user = UserRepository.getUser(userId);
 //        return new UserResponseDto(user);
