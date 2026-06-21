@@ -6,12 +6,12 @@ import com.example.communityapplication.dto.CommentsListResponseDto;
 import com.example.communityapplication.entity.Comments;
 import com.example.communityapplication.entity.Users;
 import com.example.communityapplication.repository.CommentsRepository;
-import com.example.communityapplication.repository.PostsRepository;
 import com.example.communityapplication.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 import java.util.Date;
 
@@ -21,7 +21,6 @@ import java.util.Date;
 public class CommentService {
     private final CommentsRepository commentsRepository;
     private final UsersRepository usersRepository;
-    private final PostsRepository postsRepository;
 
     public CommentResponseDto createComment(Long postId, Long userId, String content, Date createdAt){
         Users user = usersRepository.findById(userId)
@@ -41,13 +40,16 @@ public class CommentService {
         return new CommentsListResponseDto(commentsRepository.findByPostId(postId));
     }
 
-//    @PatchMapping("/{commentId}")
-//    public List<CommentResponseDto> patchComment(Long postId, Long commentId, CommentRequestDto request){
-//        Comment comment = CommentRepository.get(commentId);
-//        comment.changeContent(request.getContent());
-//
-//        return getComment(postId);
-//    }
+    @PatchMapping("/{commentId}")
+    public CommentsListResponseDto patchComment(Long postId, Long commentId, String newContent){
+        Comments comment = commentsRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("user not found"));
+
+        comment.update(newContent);
+        commentsRepository.save(comment);
+
+        return getComment(postId);
+    }
 //
 //    @DeleteMapping("/{commentId}")
 //    public void deleteComment(Long postId, Long commentId){

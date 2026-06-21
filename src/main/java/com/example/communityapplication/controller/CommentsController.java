@@ -29,12 +29,12 @@ public class CommentsController {
         return ApiResponse.of("get_success", commentResponse);
     }
 
-//    @PatchMapping("/{commentId}")
-//    public ApiResponse<List<CommentResponseDto>> patchComment(@PathVariable Long postId, @PathVariable Long commentId, @Valid @RequestBody CommentRequestDto request){
-//        List<CommentResponseDto> commentResponse = commentService.patchComment(postId, commentId, request);
-//        return ApiResponse.of("patch_success", commentResponse);
-//    }
-//
+    @PatchMapping("/{commentId}")
+    public ApiResponse<CommentsListResponseDto> patchComment(@PathVariable Long postId, @PathVariable Long commentId, @Valid @RequestBody CommentRequestDto request){
+        CommentsListResponseDto commentResponse = commentService.patchComment(postId, commentId, request.getContent());
+        return ApiResponse.of("patch_success", commentResponse);
+    }
+
 //    @DeleteMapping("/{commentId}")
 //    public void deleteComment(@PathVariable Long postId, @PathVariable Long commentId){
 //        commentService.deleteComment(postId,  commentId);

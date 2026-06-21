@@ -20,19 +20,24 @@ public class Comments {
     private String author;
     private String content;
     private Date createdAt;
+    private Date updatedAt;
+    private Date deletedAt;
 
     public Comments(Long postId, String author, String content, Date createdAt){
         this.postId = postId;
         this.author = author;
         this.content = content;
         this.createdAt = createdAt;
+        this.updatedAt = null;
+        this.deletedAt = null;
     }
 
-    public boolean isCommentMatchingPost(Long postId){
-        return this.postId.equals(postId);
+    public void update (String content){
+        this.changeContent(content);
+        this.updateDate();
     }
-
-    public void changeContent(String content){
+    private void changeContent(String content){
         this.content = content;
     }
+    private void updateDate() {this.updatedAt = new Date();}
 }
