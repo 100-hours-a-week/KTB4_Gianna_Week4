@@ -15,7 +15,12 @@ public class UsersController {
 
     @PostMapping("/signup")
     public ApiResponse<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto request) {
-        UserResponseDto userResponseDto = usersService.create(request.getEmail(), request.getPassword(),request.getNickname(),request.getProfilePicture());
+        UserResponseDto userResponseDto;
+        try {
+            userResponseDto = usersService.create(request.getEmail(), request.getPassword(),request.getNickname(),request.getProfilePicture());
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
         return ApiResponse.of("signup_success", userResponseDto);
     }
 

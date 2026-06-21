@@ -19,8 +19,11 @@ public class UsersService {
     private final UsersRepository usersRepository;
     private final DeletedUsersRepository deletedUsersRepository;
 
-    public UserResponseDto create(String email, String password, String nickname, String profilePicture){
-        Users user = new Users( email, password,nickname,profilePicture);
+    public UserResponseDto create(String email, String password, String nickname, String profilePicture) throws IllegalAccessException {
+        if(usersRepository.findByEmail(email) != null) throw new IllegalAccessException("email exists");
+        if(usersRepository.findByNickname(nickname) != null) throw new IllegalArgumentException("nickname exists");
+
+        Users user = new Users( email, password, nickname, profilePicture);
         usersRepository.save(user);
         return new UserResponseDto(user);
     }
@@ -28,7 +31,7 @@ public class UsersService {
     public LoginResponseDto userLogin(String email, String password) throws IllegalAccessException {
         Users user = usersRepository.findByEmail(email);
 
-        if(!password.equals(user.getPassword())) throw new IllegalAccessException();
+        if(!password.equals(user.getPassword())) throw new IllegalAccessException("password incorrect");
         return new LoginResponseDto(user);
     }
 
