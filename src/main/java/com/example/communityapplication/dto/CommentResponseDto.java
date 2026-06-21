@@ -1,6 +1,6 @@
 package com.example.communityapplication.dto;
 
-import com.example.communityapplication.entity.Comment;
+import com.example.communityapplication.entity.Comments;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,12 +12,12 @@ public class CommentResponseDto {
     private Long commentId;
     private String author;
     private String content;
-    private Date date;
+    private Date createdAt;
 
-    public CommentResponseDto(Comment comment){
-        this.commentId = comment.getCommentId();
-        this.author = comment.getAuthor();
-        this.content = comment.getContent();
-        this.date = comment.getDate();
+    public CommentResponseDto(Comments comments){
+        this.commentId = comments.getId();
+        this.author = comments.getAuthor();
+        this.content = comments.getContent();
+        this.createdAt = comments.getCreatedAt();
     }
 }

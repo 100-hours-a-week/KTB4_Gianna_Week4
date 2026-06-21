@@ -1,5 +1,9 @@
 package com.example.communityapplication.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -7,19 +11,21 @@ import java.util.Date;
 
 @Getter
 @RequiredArgsConstructor
-public class Comment {
-    private Long commentId;
+@Entity
+public class Comments {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private Long postId;
     private String author;
     private String content;
-    private Date date;
+    private Date createdAt;
 
-    public Comment(Long commentId, Long postId, String author, String content,Date date){
-        this.commentId = commentId;
+    public Comments(Long postId, String author, String content, Date createdAt){
         this.postId = postId;
         this.author = author;
         this.content = content;
-        this.date = date;
+        this.createdAt = createdAt;
     }
 
     public boolean isCommentMatchingPost(Long postId){

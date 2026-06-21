@@ -13,5 +13,5 @@ public class CommentRequestDto {
     @NotBlank
     private String content;
 
-    private Date date;
+    private Date createdAt;
 }
