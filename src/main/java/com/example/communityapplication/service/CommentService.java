@@ -2,6 +2,7 @@ package com.example.communityapplication.service;
 
 
 import com.example.communityapplication.dto.CommentResponseDto;
+import com.example.communityapplication.dto.CommentsListResponseDto;
 import com.example.communityapplication.entity.Comments;
 import com.example.communityapplication.entity.Users;
 import com.example.communityapplication.repository.CommentsRepository;
@@ -10,6 +11,7 @@ import com.example.communityapplication.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Date;
 
@@ -34,17 +36,11 @@ public class CommentService {
         return new CommentResponseDto(comment);
     }
 
-//    @GetMapping
-//    public List<CommentResponseDto> getComment(Long postId){
-//        List<CommentResponseDto> commentList = new ArrayList<>();
-//        CommentRepository.get().forEach((_, comment) -> {
-//            if(comment.isCommentMatchingPost(postId))
-//                commentList.add(new CommentResponseDto(comment));
-//        });
-//
-//        return commentList;
-//    }
-//
+    @GetMapping
+    public CommentsListResponseDto getComment(Long postId){
+        return new CommentsListResponseDto(commentsRepository.findByPostId(postId));
+    }
+
 //    @PatchMapping("/{commentId}")
 //    public List<CommentResponseDto> patchComment(Long postId, Long commentId, CommentRequestDto request){
 //        Comment comment = CommentRepository.get(commentId);

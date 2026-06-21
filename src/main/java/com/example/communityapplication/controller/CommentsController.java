@@ -2,11 +2,14 @@ package com.example.communityapplication.controller;
 
 import com.example.communityapplication.dto.CommentRequestDto;
 import com.example.communityapplication.dto.CommentResponseDto;
+import com.example.communityapplication.dto.CommentsListResponseDto;
 import com.example.communityapplication.response.ApiResponse;
 import com.example.communityapplication.service.CommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+
 
 @RestController
 @RequestMapping("/posts/{postId}/comments")
@@ -19,13 +22,13 @@ public class CommentsController {
         CommentResponseDto commentResponse = commentService.createComment(postId, userId, request.getContent(), request.getCreatedAt());
         return ApiResponse.of("post_success", commentResponse);
     }
-//
-//    @GetMapping
-//    public ApiResponse<List<CommentResponseDto>> getComment(@PathVariable Long postId){
-//        List<CommentResponseDto> commentResponse = commentService.getComment(postId);
-//        return ApiResponse.of("get_success", commentResponse);
-//    }
-//
+
+    @GetMapping
+    public ApiResponse<CommentsListResponseDto> getComment(@PathVariable Long postId){
+        CommentsListResponseDto commentResponse = commentService.getComment(postId);
+        return ApiResponse.of("get_success", commentResponse);
+    }
+
 //    @PatchMapping("/{commentId}")
 //    public ApiResponse<List<CommentResponseDto>> patchComment(@PathVariable Long postId, @PathVariable Long commentId, @Valid @RequestBody CommentRequestDto request){
 //        List<CommentResponseDto> commentResponse = commentService.patchComment(postId, commentId, request);
