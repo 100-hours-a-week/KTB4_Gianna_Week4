@@ -35,8 +35,8 @@ public class CommentsController {
         return ApiResponse.of("patch_success", commentResponse);
     }
 
-//    @DeleteMapping("/{commentId}")
-//    public void deleteComment(@PathVariable Long postId, @PathVariable Long commentId){
-//        commentService.deleteComment(postId,  commentId);
-//    }
+    @DeleteMapping("/{commentId}")
+    public void deleteComment(@PathVariable Long postId, @PathVariable Long commentId){
+        commentService.deleteComment(postId, commentId);
+    }
 }

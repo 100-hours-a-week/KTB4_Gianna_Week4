@@ -10,6 +10,7 @@ import com.example.communityapplication.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 
@@ -24,7 +25,7 @@ public class CommentService {
 
     public CommentResponseDto createComment(Long postId, Long userId, String content, Date createdAt){
         Users user = usersRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("user not found"));
+                .orElseThrow(() -> new IllegalArgumentException("comment not found"));
         Comments comment = new Comments(
                 postId,
                 user.getNickname(),
@@ -43,16 +44,20 @@ public class CommentService {
     @PatchMapping("/{commentId}")
     public CommentsListResponseDto patchComment(Long postId, Long commentId, String newContent){
         Comments comment = commentsRepository.findById(commentId)
-                .orElseThrow(() -> new IllegalArgumentException("user not found"));
+                .orElseThrow(() -> new IllegalArgumentException("comment not found"));
 
         comment.update(newContent);
         commentsRepository.save(comment);
 
         return getComment(postId);
     }
-//
-//    @DeleteMapping("/{commentId}")
-//    public void deleteComment(Long postId, Long commentId){
-//        CommentRepository.delete(commentId);
-//    }
+
+    @DeleteMapping("/{commentId}")
+    public void deleteComment(Long postId, Long commentId){
+        Comments comment = commentsRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("comment not found"));
+
+        comment.delete();
+        commentsRepository.save(comment);
+    }
 }
