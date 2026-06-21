@@ -30,7 +30,7 @@ public class UsersController {
         try {
             userResponse = usersService.userLogin(request.getEmail(), request.getPassword());
         } catch (IllegalAccessException e) {
-            throw new IllegalAccessException();
+            throw new IllegalAccessException(e.getMessage());
         }
         return ApiResponse.of("login_sucess", userResponse);
     }

@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.Optional;
+
 @Service
 @Validated
 @RequiredArgsConstructor
@@ -29,8 +31,10 @@ public class UsersService {
     }
 
     public LoginResponseDto userLogin(String email, String password) throws IllegalAccessException {
-        Users user = usersRepository.findByEmail(email);
+        Optional<Users> nullableUser = Optional.ofNullable(usersRepository.findByEmail(email));
+        nullableUser.orElseThrow(()-> new IllegalArgumentException("no such user"));
 
+        Users user = nullableUser.get();
         if(!password.equals(user.getPassword())) throw new IllegalAccessException("password incorrect");
         return new LoginResponseDto(user);
     }
