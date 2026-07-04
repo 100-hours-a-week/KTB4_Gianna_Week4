@@ -17,14 +17,16 @@ public class Comments {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long postId;
+    private Long userId;
     private String author;
     private String content;
     private Date createdAt;
     private Date updatedAt;
     private Date deletedAt;
 
-    public Comments(Long postId, String author, String content, Date createdAt){
+    public Comments(Long postId,Long userId, String author, String content, Date createdAt){
         this.postId = postId;
+        this.userId = userId;
         this.author = author;
         this.content = content;
         this.createdAt = createdAt;

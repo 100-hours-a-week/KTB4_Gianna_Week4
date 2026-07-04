@@ -28,6 +28,7 @@ public class CommentService {
                 .orElseThrow(() -> new IllegalArgumentException("comment not found"));
         Comments comment = new Comments(
                 postId,
+                userId,
                 user.getNickname(),
                content,
                 createdAt
