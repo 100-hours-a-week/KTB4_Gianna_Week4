@@ -41,8 +41,8 @@ public class UsersService {
 
     public UserResponseDto getUser(Long userId){
         Users user = usersRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("user not found"));
-        if(user.getEmail().isBlank()) throw new IllegalArgumentException("user not found");
+                .orElseThrow(() -> new IllegalArgumentException("user not found from repository by id"));
+        if(user.getEmail().isBlank()) throw new IllegalArgumentException("user not found - deleted user");
 
         return new UserResponseDto(user);
     }
